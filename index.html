@@ -2,7 +2,14 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Seguro Auto" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#4A5E4A" />
+  <link id="appIcon" rel="icon" href="" />
+  <link id="appleTouchIcon" rel="apple-touch-icon" href="" />
   <title>Credencial Seguro Auto</title>
   <style>
     :root {
@@ -24,7 +31,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 18px;
+      padding: max(18px, env(safe-area-inset-top)) 18px max(18px, env(safe-area-inset-bottom));
       color: var(--beige);
     }
 
@@ -384,8 +391,10 @@
       if (el) el.href = value;
     };
 
-    const tactikaLogo = getParam("tactikalogo", "");
+    const tactikaLogo = getParam("tactikalogo", "https://drive.google.com/uc?export=view&id=1MhAK4zeeyNvabPIsvb0THRmyROdWa9dt");
     const logo = getParam("logo", "");
+    const appicon = getParam("appicon", tactikaLogo);
+    const apptitle = getParam("apptitle", "Seguro Auto");
     const aseguradora = getParam("aseguradora", "Qualitas Compañía de Seguros");
     const vigencia = getParam("vigencia", "08 JUL 2025<br>– 08 JUL 2026").replace(/\n/g, "<br>");
     const contratante = getParam("contratante", "LUCAS ALEXANDER WALLER MORENO");
@@ -418,6 +427,16 @@
       tactikaTextoFallback.style.display = "none";
     }
 
+    document.title = apptitle;
+    const appTitleMeta = document.querySelector('meta[name="apple-mobile-web-app-title"]');
+    if (appTitleMeta) appTitleMeta.setAttribute('content', apptitle);
+    const appIconEl = document.getElementById("appIcon");
+    const appleTouchIconEl = document.getElementById("appleTouchIcon");
+    if (appicon) {
+      appIconEl.href = appicon;
+      appleTouchIconEl.href = appicon;
+    }
+
     const logoEl = document.getElementById("logoAseguradora");
     if (logo) {
       logoEl.src = logo;
@@ -434,5 +453,4 @@
   </script>
 </body>
 </html>
-
 
