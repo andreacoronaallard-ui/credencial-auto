@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Credencial Seguro Auto</title>
+  <style>
+    :root {
+      --green: #4A5E4A;
+      --green-dark: #2C3228;
+      --beige: #F0EADA;
+      --stone: #ADA899;
+      --white: #ffffff;
+      --shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Avenir Next", Avenir, Montserrat, Arial, sans-serif;
+      background: linear-gradient(180deg, #eef0ea 0%, #dfe5db 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      color: var(--beige);
+    }
+
+    .phone {
+      width: 100%;
+      max-width: 430px;
+    }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 34px;
+      background: var(--green);
+      box-shadow: var(--shadow);
+      min-height: 840px;
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+
+    .pattern {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.055;
+      background-image: radial-gradient(circle at 25px 25px, rgba(255,255,255,0.55) 1px, transparent 1px);
+      background-size: 36px 36px;
+      mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 100%);
+    }
+
+    .top {
+      padding: 26px 24px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 14px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .brand {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .brand-logo-wrap {
+      display: none;
+      max-width: 210px;
+      margin-bottom: 8px;
+    }
+
+    .brand-logo-wrap img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .brand-title-text {
+      font-size: clamp(28px, 7vw, 40px);
+      line-height: 0.95;
+      letter-spacing: 1px;
+      font-weight: 700;
+    }
+
+    .brand-subtitle {
+      margin-top: 8px;
+      font-size: 12px;
+      letter-spacing: 2.8px;
+      text-transform: uppercase;
+      opacity: 0.92;
+    }
+
+    .vigencia-box {
+      text-align: right;
+      max-width: 140px;
+      flex-shrink: 0;
+    }
+
+    .label-top {
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      opacity: 0.9;
+      margin-bottom: 6px;
+    }
+
+    .vigencia {
+      font-size: 18px;
+      line-height: 1.3;
+      font-weight: 500;
+    }
+
+    .insurer-band {
+      background: var(--beige);
+      color: var(--green-dark);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .logo-wrap {
+      width: 52px;
+      height: 52px;
+      flex: 0 0 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .logo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .insurer-name {
+      font-size: 17px;
+      line-height: 1.15;
+      font-weight: 600;
+    }
+
+    .main {
+      padding: 24px 24px 10px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .label {
+      font-size: 16px;
+      opacity: 0.9;
+      margin-bottom: 8px;
+    }
+
+    .value-lg {
+      font-size: clamp(24px, 7vw, 34px);
+      line-height: 1.08;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .divider {
+      height: 1px;
+      background: rgba(240, 234, 218, 0.42);
+      margin: 18px 0 20px;
+    }
+
+    .value-md {
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 6px;
+      word-break: break-word;
+    }
+
+    .vehicle-panel {
+      margin-top: 20px;
+      background: var(--beige);
+      color: var(--green-dark);
+      padding: 22px 24px 18px;
+      border-top: 1px solid rgba(44, 50, 40, 0.08);
+      border-bottom: 1px solid rgba(44, 50, 40, 0.08);
+      position: relative;
+      z-index: 2;
+    }
+
+    .vehicle-title {
+      font-size: clamp(24px, 7vw, 36px);
+      font-weight: 800;
+      line-height: 1.08;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+
+    .vehicle-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .vehicle-row {
+      display: grid;
+      grid-template-columns: 116px 1fr;
+      gap: 10px;
+      align-items: start;
+      font-size: 17px;
+    }
+
+    .vehicle-row .k {
+      opacity: 0.82;
+    }
+
+    .vehicle-row .v {
+      font-weight: 700;
+      word-break: break-word;
+    }
+
+    .actions-panel {
+      background: var(--beige);
+      color: var(--green-dark);
+      padding: 22px 24px 28px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .call-title {
+      font-size: 17px;
+      margin-bottom: 10px;
+    }
+
+    .call-phone {
+      font-size: clamp(28px, 7vw, 34px);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 18px;
+    }
+
+    .buttons {
+      display: grid;
+      gap: 14px;
+      margin-top: 12px;
+    }
+
+    .btn {
+      appearance: none;
+      border: 0;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      min-height: 64px;
+      padding: 14px 18px;
+      border-radius: 999px;
+      font-size: 18px;
+      font-weight: 700;
+      transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
+      cursor: pointer;
+    }
+
+    .btn:active {
+      transform: scale(0.99);
+    }
+
+    .btn-call {
+      background: var(--green);
+      color: var(--beige);
+      box-shadow: 0 10px 24px rgba(44, 50, 40, 0.24);
+    }
+
+    .btn-pdf {
+      background: transparent;
+      color: var(--green-dark);
+      border: 2px solid rgba(44, 50, 40, 0.18);
+    }
+
+    .footer-space {
+      height: 24px;
+    }
+
+    @media (max-width: 380px) {
+      .top, .main, .vehicle-panel, .actions-panel { padding-left: 18px; padding-right: 18px; }
+      .insurer-band { padding-left: 16px; padding-right: 16px; }
+      .vehicle-row { grid-template-columns: 92px 1fr; font-size: 15px; }
+      .btn { font-size: 16px; min-height: 58px; }
+      .insurer-name { font-size: 15px; }
+      .logo-wrap { width: 46px; height: 46px; flex-basis: 46px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="phone">
+    <div class="card">
+      <div class="pattern"></div>
+
+      <div class="top">
+        <div class="brand">
+          <div class="brand-logo-wrap" id="tactikaLogoWrap">
+            <img id="tactikaLogo" alt="Logo Tactika" src="" />
+          </div>
+          <div class="brand-title-text" id="tactikaTextoFallback">TACTIKA</div>
+          <div class="brand-subtitle">Agente de Seguros</div>
+        </div>
+        <div class="vigencia-box">
+          <div class="label-top">Vigencia</div>
+          <div class="vigencia" id="vigencia">08 JUL 2025<br>– 08 JUL 2026</div>
+        </div>
+      </div>
+
+      <div class="insurer-band">
+        <div class="logo-wrap">
+          <img id="logoAseguradora" alt="Logo aseguradora" src="" />
+        </div>
+        <div class="insurer-name" id="nombreAseguradora">Qualitas Compañía de Seguros</div>
+      </div>
+
+      <div class="main">
+        <div class="label">Contratante:</div>
+        <div class="value-lg" id="contratante">LUCAS ALEXANDER WALLER MORENO</div>
+
+        <div class="divider"></div>
+
+        <div class="label">Póliza:</div>
+        <div class="value-md" id="poliza">1290599162</div>
+      </div>
+
+      <div class="vehicle-panel">
+        <div class="vehicle-title" id="vehiculo">NISSAN VERSA ADVANCE 2022</div>
+        <div class="vehicle-grid">
+          <div class="vehicle-row">
+            <div class="k">Color:</div>
+            <div class="v" id="color">Platino</div>
+          </div>
+          <div class="vehicle-row">
+            <div class="k">No. serie:</div>
+            <div class="v" id="serie">3N1CN8AE2NL848935</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions-panel">
+        <div class="call-title">Siniestros</div>
+        <div class="call-phone" id="telefonoTexto">800 288 6700</div>
+
+        <div class="buttons">
+          <a class="btn btn-call" id="btnTelefono" href="tel:8002886700">📞 Llamar a siniestros</a>
+          <a class="btn btn-pdf" id="btnPdf" href="#" target="_blank" rel="noopener noreferrer">📄 Ver póliza completa</a>
+        </div>
+      </div>
+
+      <div class="footer-space"></div>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+
+    const getParam = (name, fallback = "") => {
+      const value = params.get(name);
+      return value && value.trim() ? value.trim() : fallback;
+    };
+
+    const setText = (id, value) => {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = value;
+    };
+
+    const setHref = (id, value) => {
+      const el = document.getElementById(id);
+      if (el) el.href = value;
+    };
+
+    const tactikaLogo = getParam("tactikalogo", "");
+    const logo = getParam("logo", "");
+    const aseguradora = getParam("aseguradora", "Qualitas Compañía de Seguros");
+    const vigencia = getParam("vigencia", "08 JUL 2025<br>– 08 JUL 2026").replace(/\n/g, "<br>");
+    const contratante = getParam("contratante", "LUCAS ALEXANDER WALLER MORENO");
+    const poliza = getParam("poliza", "1290599162");
+    const pdf = getParam("pdf", "#");
+    const vehiculo = getParam("vehiculo", "NISSAN VERSA ADVANCE 2022");
+    const color = getParam("color", "Platino");
+    const serie = getParam("serie", "3N1CN8AE2NL848935");
+    const telefono = getParam("telefono", "800 288 6700");
+    const telefonoLink = getParam("telefonolink", telefono.replace(/[^\d+]/g, ""));
+
+    setText("nombreAseguradora", aseguradora);
+    setText("vigencia", vigencia);
+    setText("contratante", contratante);
+    setText("poliza", poliza);
+    setText("vehiculo", vehiculo);
+    setText("color", color);
+    setText("serie", serie);
+    setText("telefonoTexto", telefono);
+    setHref("btnTelefono", `tel:${telefonoLink}`);
+    setHref("btnPdf", pdf);
+
+    const tactikaLogoEl = document.getElementById("tactikaLogo");
+    const tactikaLogoWrap = document.getElementById("tactikaLogoWrap");
+    const tactikaTextoFallback = document.getElementById("tactikaTextoFallback");
+
+    if (tactikaLogo) {
+      tactikaLogoEl.src = tactikaLogo;
+      tactikaLogoWrap.style.display = "block";
+      tactikaTextoFallback.style.display = "none";
+    }
+
+    const logoEl = document.getElementById("logoAseguradora");
+    if (logo) {
+      logoEl.src = logo;
+    } else {
+      logoEl.style.display = "none";
+    }
+
+    const btnPdf = document.getElementById("btnPdf");
+    if (!pdf || pdf === "#") {
+      btnPdf.style.opacity = "0.45";
+      btnPdf.style.pointerEvents = "none";
+      btnPdf.textContent = "📄 Póliza no disponible";
+    }
+  </script>
+</body>
+</html>
