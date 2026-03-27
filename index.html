@@ -8,14 +8,14 @@
   <meta name="apple-mobile-web-app-title" content="Seguro Auto" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="theme-color" content="#4A5E4A" />
-  <link rel="icon" href="https://credencial.tactika.mx/logo-tactika.png" />
-  <link rel="apple-touch-icon" href="https://credencial.tactika.mx/logo-tactika.png" />
+  <link id="appIcon" rel="icon" href="" />
+  <link id="appleTouchIcon" rel="apple-touch-icon" href="" />
   <title>Credencial Seguro Auto</title>
 
   <meta property="og:title" content="Credencial Seguro Auto" />
   <meta property="og:description" content="Accede a tu credencial digital de seguro de auto con Tactika." />
   <meta property="og:image" content="https://credencial.tactika.mx/preview-tactika-auto.jpg" />
-  <meta property="og:url" content="https://credencial.tactika.mx/auto/" />
+  <meta property="og:url" content="https://credencial.tactika.mx/" />
   <meta property="og:type" content="website" />
 
   <meta name="twitter:card" content="summary_large_image" />
@@ -68,6 +68,13 @@
       gap: 14px;
     }
 
+    .brand {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
     .brand-logo-wrap {
       max-width: 210px;
     }
@@ -77,6 +84,14 @@
       width: 100%;
       height: auto;
       object-fit: contain;
+    }
+
+    .brand-title-text {
+      font-size: clamp(28px, 7vw, 40px);
+      line-height: 0.95;
+      letter-spacing: 1px;
+      font-weight: 700;
+      display: none;
     }
 
     .vigencia-box {
@@ -115,6 +130,7 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      background: transparent;
     }
 
     .logo-wrap img {
@@ -261,129 +277,161 @@
       box-shadow: 0 10px 24px rgba(37, 211, 102, 0.35);
     }
 
-    .message {
-      padding: 40px 24px;
-      color: #fff;
-      text-align: center;
-      font-size: 18px;
+    .footer-space {
+      height: 24px;
+    }
+
+    @media (max-width: 380px) {
+      .top, .main, .vehicle-panel, .actions-panel { padding-left: 18px; padding-right: 18px; }
+      .insurer-band { padding-left: 16px; padding-right: 16px; }
+      .vehicle-row { grid-template-columns: 92px 1fr; font-size: 15px; }
+      .btn { font-size: 16px; min-height: 58px; }
+      .insurer-name { font-size: 15px; }
+      .logo-wrap { width: 46px; height: 46px; flex-basis: 46px; }
     }
   </style>
 </head>
 <body>
   <div class="phone">
-    <div class="card" id="card" style="display:none;">
+    <div class="card">
       <div class="top">
-        <div class="brand-logo-wrap">
-          <img src="https://credencial.tactika.mx/logo-tactika.png" alt="Tactika" />
+        <div class="brand">
+          <div class="brand-logo-wrap" id="tactikaLogoWrap">
+            <img id="tactikaLogo" alt="Logo Tactika" src="" />
+          </div>
+          <div class="brand-title-text" id="tactikaTextoFallback">TACTIKA</div>
         </div>
         <div class="vigencia-box">
           <div class="label-top">Vigencia</div>
-          <div class="vigencia" id="vigencia"></div>
+          <div class="vigencia" id="vigencia">08 JUL 2025<br>– 08 JUL 2026</div>
         </div>
       </div>
 
       <div class="insurer-band">
-        <div class="logo-wrap">
+        <div class="logo-wrap" id="logoWrapAseguradora">
           <img id="logoAseguradora" alt="Logo aseguradora" src="" />
         </div>
-        <div class="insurer-name" id="nombreAseguradora"></div>
+        <div class="insurer-name" id="nombreAseguradora">Qualitas Compañía de Seguros</div>
       </div>
 
       <div class="main">
         <div class="label">Contratante:</div>
-        <div class="value-lg" id="contratante"></div>
+        <div class="value-lg" id="contratante">LUCAS ALEXANDER WALLER MORENO</div>
 
         <div class="divider"></div>
 
         <div class="label">Póliza:</div>
-        <div class="value-md" id="poliza"></div>
+        <div class="value-md" id="poliza">1290599162</div>
       </div>
 
       <div class="vehicle-panel">
-        <div class="vehicle-title" id="vehiculo"></div>
+        <div class="vehicle-title" id="vehiculo">NISSAN VERSA ADVANCE 2022</div>
         <div class="vehicle-grid">
           <div class="vehicle-row">
             <div class="k">Color:</div>
-            <div class="v" id="color"></div>
+            <div class="v" id="color">Platino</div>
           </div>
           <div class="vehicle-row">
             <div class="k">No. serie:</div>
-            <div class="v" id="serie"></div>
+            <div class="v" id="serie">3N1CN8AE2NL848935</div>
           </div>
         </div>
       </div>
 
       <div class="actions-panel">
         <div class="call-title">Siniestros</div>
-        <div class="call-phone" id="telefonoTexto"></div>
+        <div class="call-phone" id="telefonoTexto">800 288 6700</div>
 
         <div class="buttons">
-          <a class="btn btn-call" id="btnTelefono" href="#">📞 Llamar a siniestros</a>
+          <a class="btn btn-call" id="btnTelefono" href="tel:8002886700">📞 Llamar a siniestros</a>
           <a class="btn btn-pdf" id="btnPdf" href="#" target="_blank" rel="noopener noreferrer">📄 Ver póliza completa</a>
-          <a class="btn btn-whatsapp" href="https://wa.me/message/HWHNU3PT7TYXG1" target="_blank" rel="noopener noreferrer">💬 Contacta a tu agente</a>
+          <a class="btn btn-whatsapp" id="btnWhatsapp" href="https://wa.me/message/HWHNU3PT7TYXG1" target="_blank" rel="noopener noreferrer">💬 Contacta a tu agente</a>
         </div>
       </div>
-    </div>
 
-    <div class="message" id="message">Cargando credencial...</div>
+      <div class="footer-space"></div>
+    </div>
   </div>
 
   <script>
-    async function cargarCredencial() {
-      const params = new URLSearchParams(window.location.search);
-      const codigo = params.get("c");
+    const params = new URLSearchParams(window.location.search);
 
-      const message = document.getElementById("message");
-      const card = document.getElementById("card");
+    const getParam = (name, fallback = "") => {
+      const value = params.get(name);
+      return value && value.trim() ? value.trim() : fallback;
+    };
 
-      if (!codigo) {
-        message.innerHTML = "No se encontró código de credencial.";
-        return;
-      }
+    const setText = (id, value) => {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = value;
+    };
 
-      try {
-        const [respPolizas, respAseguradoras] = await Promise.all([
-          fetch("/data/auto.json"),
-          fetch("/data/aseguradoras-auto.json")
-        ]);
+    const setHref = (id, value) => {
+      const el = document.getElementById(id);
+      if (el) el.href = value;
+    };
 
-        const polizas = await respPolizas.json();
-        const aseguradoras = await respAseguradoras.json();
+    const tactikaLogo = getParam("tactikalogo", "https://lh3.googleusercontent.com/uc?export=view&id=1MhAK4zeeyNvabPIsvb0THRmyROdWa9dt");
+    const logo = getParam("logo", "");
+    const appicon = getParam("appicon", tactikaLogo);
+    const apptitle = getParam("apptitle", "Seguro Auto");
+    const aseguradora = getParam("aseguradora", "Qualitas Compañía de Seguros");
+    const vigencia = getParam("vigencia", "08 JUL 2025<br>– 08 JUL 2026").replace(/\n/g, "<br>");
+    const contratante = getParam("contratante", "LUCAS ALEXANDER WALLER MORENO");
+    const poliza = getParam("poliza", "1290599162");
+    const pdf = getParam("pdf", "#");
+    const vehiculo = getParam("vehiculo", "NISSAN VERSA ADVANCE 2022");
+    const color = getParam("color", "Platino");
+    const serie = getParam("serie", "3N1CN8AE2NL848935");
+    const telefono = getParam("telefono", "800 288 6700");
+    const telefonoLink = getParam("telefonolink", telefono.replace(/[^\d+]/g, ""));
 
-        const poliza = polizas[codigo];
+    setText("nombreAseguradora", aseguradora);
+    setText("vigencia", vigencia);
+    setText("contratante", contratante);
+    setText("poliza", poliza);
+    setText("vehiculo", vehiculo);
+    setText("color", color);
+    setText("serie", serie);
+    setText("telefonoTexto", telefono);
+    setHref("btnTelefono", `tel:${telefonoLink}`);
+    setHref("btnPdf", pdf);
 
-        if (!poliza) {
-          message.innerHTML = "Credencial no encontrada.";
-          return;
-        }
+    document.title = apptitle;
+    const appTitleMeta = document.querySelector('meta[name="apple-mobile-web-app-title"]');
+    if (appTitleMeta) appTitleMeta.setAttribute("content", apptitle);
 
-        const aseguradora = aseguradoras[poliza.aseguradora_id];
-
-        if (!aseguradora) {
-          message.innerHTML = "Aseguradora no configurada.";
-          return;
-        }
-
-        document.getElementById("nombreAseguradora").innerHTML = aseguradora.nombre;
-        document.getElementById("logoAseguradora").src = aseguradora.logo;
-        document.getElementById("vigencia").innerHTML = poliza.vigencia;
-        document.getElementById("contratante").innerHTML = poliza.contratante;
-        document.getElementById("poliza").innerHTML = poliza.poliza;
-        document.getElementById("vehiculo").innerHTML = poliza.vehiculo;
-        document.getElementById("color").innerHTML = poliza.color;
-        document.getElementById("serie").innerHTML = poliza.serie;
-        document.getElementById("telefonoTexto").innerHTML = aseguradora.telefono_siniestros;
-        document.getElementById("btnTelefono").href = "tel:" + aseguradora.telefonolink;
-        document.getElementById("btnPdf").href = poliza.pdf;
-
-        message.style.display = "none";
-        card.style.display = "block";
-      } catch (error) {
-        message.innerHTML = "Ocurrió un error al cargar la credencial.";
-      }
+    const appIconEl = document.getElementById("appIcon");
+    const appleTouchIconEl = document.getElementById("appleTouchIcon");
+    if (appicon) {
+      appIconEl.href = appicon;
+      appleTouchIconEl.href = appicon;
     }
 
-    cargarCredencial();
+    const tactikaLogoEl = document.getElementById("tactikaLogo");
+    const tactikaTextoFallback = document.getElementById("tactikaTextoFallback");
+
+    if (tactikaLogo) {
+      tactikaLogoEl.src = tactikaLogo;
+    } else {
+      document.getElementById("tactikaLogoWrap").style.display = "none";
+      tactikaTextoFallback.style.display = "block";
+    }
+
+    const logoEl = document.getElementById("logoAseguradora");
+    const logoWrapAseguradora = document.getElementById("logoWrapAseguradora");
+    if (logo) {
+      logoEl.src = logo;
+    } else {
+      logoWrapAseguradora.style.display = "none";
+    }
+
+    const btnPdf = document.getElementById("btnPdf");
+    if (!pdf || pdf === "#") {
+      btnPdf.style.opacity = "0.45";
+      btnPdf.style.pointerEvents = "none";
+      btnPdf.textContent = "📄 Póliza no disponible";
+    }
   </script>
 </body>
 </html>
