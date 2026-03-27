@@ -11,20 +11,6 @@
   <link id="appIcon" rel="icon" href="" />
   <link id="appleTouchIcon" rel="apple-touch-icon" href="" />
   <title>Credencial Seguro Auto</title>
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Credencial Seguro Auto" />
-  <meta property="og:description" content="Accede a tu credencial digital de seguro de auto con Tactika." />
-  <meta property="og:image" content="https://credencial.tactika.mx/preview-tactika-auto.png" />
-  <meta property="og:url" content="https://credencial.tactika.mx/" />
-  <meta property="og:type" content="website" />
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Credencial Seguro Auto" />
-  <meta name="twitter:description" content="Accede a tu credencial digital de seguro de auto con Tactika." />
-  <meta name="twitter:image" content="https://credencial.tactika.mx/preview-tactika-auto.png" />
-
   <style>
     :root {
       --green: #4A5E4A;
@@ -110,6 +96,8 @@
       letter-spacing: 1px;
       font-weight: 700;
     }
+
+    
 
     .vigencia-box {
       text-align: right;
@@ -331,6 +319,7 @@
             <img id="tactikaLogo" alt="Logo Tactika" src="" />
           </div>
           <div class="brand-title-text" id="tactikaTextoFallback">TACTIKA</div>
+          
         </div>
         <div class="vigencia-box">
           <div class="label-top">Vigencia</div>
@@ -402,7 +391,7 @@
       if (el) el.href = value;
     };
 
-    const tactikaLogo = getParam("tactikalogo", "https://lh3.googleusercontent.com/uc?export=view&id=1MhAK4zeeyNvabPIsvb0THRmyROdWa9dt");
+    const tactikaLogo = getParam("tactikalogo", "https://lh3.googleusercontent.com/d/1MhAK4zeeyNvabPIsvb0THRmyROdWa9dt");
     const logo = getParam("logo", "");
     const appicon = getParam("appicon", tactikaLogo);
     const apptitle = getParam("apptitle", "Seguro Auto");
@@ -428,17 +417,6 @@
     setHref("btnTelefono", `tel:${telefonoLink}`);
     setHref("btnPdf", pdf);
 
-    document.title = apptitle;
-    const appTitleMeta = document.querySelector('meta[name="apple-mobile-web-app-title"]');
-    if (appTitleMeta) appTitleMeta.setAttribute("content", apptitle);
-
-    const appIconEl = document.getElementById("appIcon");
-    const appleTouchIconEl = document.getElementById("appleTouchIcon");
-    if (appicon) {
-      appIconEl.href = appicon;
-      appleTouchIconEl.href = appicon;
-    }
-
     const tactikaLogoEl = document.getElementById("tactikaLogo");
     const tactikaLogoWrap = document.getElementById("tactikaLogoWrap");
     const tactikaTextoFallback = document.getElementById("tactikaTextoFallback");
@@ -447,6 +425,16 @@
       tactikaLogoEl.src = tactikaLogo;
       tactikaLogoWrap.style.display = "block";
       tactikaTextoFallback.style.display = "none";
+    }
+
+    document.title = apptitle;
+    const appTitleMeta = document.querySelector('meta[name="apple-mobile-web-app-title"]');
+    if (appTitleMeta) appTitleMeta.setAttribute('content', apptitle);
+    const appIconEl = document.getElementById("appIcon");
+    const appleTouchIconEl = document.getElementById("appleTouchIcon");
+    if (appicon) {
+      appIconEl.href = appicon;
+      appleTouchIconEl.href = appicon;
     }
 
     const logoEl = document.getElementById("logoAseguradora");
