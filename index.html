@@ -11,13 +11,23 @@
   <link id="appIcon" rel="icon" href="" />
   <link id="appleTouchIcon" rel="apple-touch-icon" href="" />
   <title>Credencial Seguro Auto</title>
+
+  <meta property="og:title" content="Credencial Seguro Auto" />
+  <meta property="og:description" content="Accede a tu credencial digital de seguro de auto con Tactika." />
+  <meta property="og:image" content="https://credencial.tactika.mx/preview-tactika-auto.png" />
+  <meta property="og:url" content="https://credencial.tactika.mx/" />
+  <meta property="og:type" content="website" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Credencial Seguro Auto" />
+  <meta name="twitter:description" content="Accede a tu credencial digital de seguro de auto con Tactika." />
+  <meta name="twitter:image" content="https://credencial.tactika.mx/preview-tactika-auto.png" />
+
   <style>
     :root {
       --green: #4A5E4A;
       --green-dark: #2C3228;
       --beige: #F0EADA;
-      --stone: #ADA899;
-      --white: #ffffff;
       --shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
     }
 
@@ -50,24 +60,12 @@
       border: 1px solid rgba(255,255,255,0.18);
     }
 
-    .pattern {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      opacity: 0.055;
-      background-image: radial-gradient(circle at 25px 25px, rgba(255,255,255,0.55) 1px, transparent 1px);
-      background-size: 36px 36px;
-      mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 100%);
-    }
-
     .top {
       padding: 26px 24px 18px;
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
       gap: 14px;
-      position: relative;
-      z-index: 2;
     }
 
     .brand {
@@ -78,9 +76,7 @@
     }
 
     .brand-logo-wrap {
-      display: none;
       max-width: 210px;
-      margin-bottom: 8px;
     }
 
     .brand-logo-wrap img {
@@ -95,9 +91,8 @@
       line-height: 0.95;
       letter-spacing: 1px;
       font-weight: 700;
+      display: none;
     }
-
-    
 
     .vigencia-box {
       text-align: right;
@@ -125,8 +120,6 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      position: relative;
-      z-index: 2;
     }
 
     .logo-wrap {
@@ -137,6 +130,7 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      background: transparent;
     }
 
     .logo-wrap img {
@@ -154,13 +148,11 @@
 
     .main {
       padding: 24px 24px 10px;
-      position: relative;
-      z-index: 2;
     }
 
     .label {
       font-size: 16px;
-      opacity: 0.9;
+      opacity: 0.95;
       margin-bottom: 8px;
     }
 
@@ -194,8 +186,6 @@
       padding: 22px 24px 18px;
       border-top: 1px solid rgba(44, 50, 40, 0.08);
       border-bottom: 1px solid rgba(44, 50, 40, 0.08);
-      position: relative;
-      z-index: 2;
     }
 
     .vehicle-title {
@@ -232,8 +222,6 @@
       background: var(--beige);
       color: var(--green-dark);
       padding: 22px 24px 28px;
-      position: relative;
-      z-index: 2;
     }
 
     .call-title {
@@ -268,12 +256,7 @@
       border-radius: 999px;
       font-size: 18px;
       font-weight: 700;
-      transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
       cursor: pointer;
-    }
-
-    .btn:active {
-      transform: scale(0.99);
     }
 
     .btn-call {
@@ -311,15 +294,12 @@
 <body>
   <div class="phone">
     <div class="card">
-      <div class="pattern"></div>
-
       <div class="top">
         <div class="brand">
           <div class="brand-logo-wrap" id="tactikaLogoWrap">
             <img id="tactikaLogo" alt="Logo Tactika" src="" />
           </div>
           <div class="brand-title-text" id="tactikaTextoFallback">TACTIKA</div>
-          
         </div>
         <div class="vigencia-box">
           <div class="label-top">Vigencia</div>
@@ -328,7 +308,7 @@
       </div>
 
       <div class="insurer-band">
-        <div class="logo-wrap">
+        <div class="logo-wrap" id="logoWrapAseguradora">
           <img id="logoAseguradora" alt="Logo aseguradora" src="" />
         </div>
         <div class="insurer-name" id="nombreAseguradora">Qualitas Compañía de Seguros</div>
@@ -391,7 +371,7 @@
       if (el) el.href = value;
     };
 
-    const tactikaLogo = getParam("tactikalogo", "https://lh3.googleusercontent.com/d/1MhAK4zeeyNvabPIsvb0THRmyROdWa9dt");
+    const tactikaLogo = getParam("tactikalogo", "https://lh3.googleusercontent.com/uc?export=view&id=1MhAK4zeeyNvabPIsvb0THRmyROdWa9dt");
     const logo = getParam("logo", "");
     const appicon = getParam("appicon", tactikaLogo);
     const apptitle = getParam("apptitle", "Seguro Auto");
@@ -417,19 +397,10 @@
     setHref("btnTelefono", `tel:${telefonoLink}`);
     setHref("btnPdf", pdf);
 
-    const tactikaLogoEl = document.getElementById("tactikaLogo");
-    const tactikaLogoWrap = document.getElementById("tactikaLogoWrap");
-    const tactikaTextoFallback = document.getElementById("tactikaTextoFallback");
-
-    if (tactikaLogo) {
-      tactikaLogoEl.src = tactikaLogo;
-      tactikaLogoWrap.style.display = "block";
-      tactikaTextoFallback.style.display = "none";
-    }
-
     document.title = apptitle;
     const appTitleMeta = document.querySelector('meta[name="apple-mobile-web-app-title"]');
-    if (appTitleMeta) appTitleMeta.setAttribute('content', apptitle);
+    if (appTitleMeta) appTitleMeta.setAttribute("content", apptitle);
+
     const appIconEl = document.getElementById("appIcon");
     const appleTouchIconEl = document.getElementById("appleTouchIcon");
     if (appicon) {
@@ -437,11 +408,22 @@
       appleTouchIconEl.href = appicon;
     }
 
+    const tactikaLogoEl = document.getElementById("tactikaLogo");
+    const tactikaTextoFallback = document.getElementById("tactikaTextoFallback");
+
+    if (tactikaLogo) {
+      tactikaLogoEl.src = tactikaLogo;
+    } else {
+      document.getElementById("tactikaLogoWrap").style.display = "none";
+      tactikaTextoFallback.style.display = "block";
+    }
+
     const logoEl = document.getElementById("logoAseguradora");
+    const logoWrapAseguradora = document.getElementById("logoWrapAseguradora");
     if (logo) {
       logoEl.src = logo;
     } else {
-      logoEl.style.display = "none";
+      logoWrapAseguradora.style.display = "none";
     }
 
     const btnPdf = document.getElementById("btnPdf");
