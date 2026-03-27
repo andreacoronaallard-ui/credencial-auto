@@ -38,5 +38,15 @@
     "vehiculo": "Mazda CX70 MHEV 2025",
     "color": "Negro",
     "serie": "JM3KJPHD3S1113306"
+    },
+        "00000678595315": {
+    "aseguradora_id": "gnp",
+    "vigencia": "03/07/2025<br>03/07/2026",
+    "contratante": "ANSEAD LEASING",
+    "poliza": "00000678595315",
+    "pdf": "https://drive.google.com/file/d/1hCXq4GV1tsuEKXVlfMMteU2rBeTmeOlp/view?usp=drive_link",
+    "vehiculo": "BYD Song Plus 2026",
+    "color": "Arena",
+    "serie": "LGXC74C44T0017521"
     }
 }
