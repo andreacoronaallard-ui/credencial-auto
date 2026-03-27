@@ -28,5 +28,15 @@
     "vehiculo": "Nissan Xtrail EPower 2023",
     "color": "Arena",
     "serie": "JN8CT3MT2PW002368"
+    },
+      "005329738": {
+    "aseguradora_id": "ana",
+    "vigencia": "10/07/2025<br>10/07/2026",
+    "contratante": "ANSEAD LEASING",
+    "poliza": "005329738",
+    "pdf": "https://drive.google.com/file/d/1KcmtTNrymt12TTCO8VXoKJG3rqDq3MaK/view?usp=drive_link",
+    "vehiculo": "Mazda CX70 MHEV 2025",
+    "color": "Negro",
+    "serie": "JM3KJPHD3S1113306"
     }
 }
