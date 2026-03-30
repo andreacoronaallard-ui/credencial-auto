@@ -374,7 +374,7 @@
         document.getElementById("serie").innerHTML = poliza.serie;
         document.getElementById("telefonoTexto").innerHTML = aseguradora.telefono_siniestros;
         document.getElementById("btnTelefono").href = "tel:" + aseguradora.telefonolink;
-        document.getElementById("btnPdf").href = poliza.pdf;
+        document.getElementById("btnPdf").href = poliza.pdf_url || poliza.pdf || "#";
 
         message.style.display = "none";
         card.style.display = "block";
