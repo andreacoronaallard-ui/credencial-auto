@@ -48,5 +48,25 @@
     "vehiculo": "BYD Song Plus 2026",
     "color": "Arena",
     "serie": "LGXC74C44T0017521"
-    }
+    },
+        "005685899": {
+    "aseguradora_id": "ana",
+    "vigencia": "23/03/2026<br>23/03/2027",
+    "contratante": "Gregorio Roitman Gonzalez",
+    "poliza": "005685899",
+    "pdf": "https://drive.google.com/file/d/1rb-frnu04tQyNT1zXGNbHEN7Rif4Uojc/view?usp=drive_link",
+    "vehiculo": "Fiat 500 Sport 2014",
+    "color": " ",
+    "serie": "3C3CFFBR0ET275943"
+    },
+      "1290649638": {
+    "aseguradora_id": "qualitas",
+    "vigencia": "05/03/2026<br>05/03/2027",
+    "contratante": "Gregorio Roitman Gonzalez",
+    "poliza": "1290649638",
+    "pdf": "https://drive.google.com/file/d/1KNloU_AXbSCz5YkqtulQLvpUOqNffa44/view?usp=drive_link",
+    "vehiculo": "Mercedes Benz C-200 CGI 2016",
+    "color": " ",
+    "serie": "WDDWF4CB2GF329888"
+      }
 }
