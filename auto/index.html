@@ -8,8 +8,8 @@
   <meta name="apple-mobile-web-app-title" content="Seguro Auto" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="theme-color" content="#4A5E4A" />
-  <link rel="icon" href="https://credencial.tactika.mx/logo-tactika.png" />
-  <link rel="apple-touch-icon" href="https://credencial.tactika.mx/logo-tactika.png" />
+  <link rel="icon" href="https://credencial.tactika.mx/assets/logo-tactika.png" />
+  <link rel="apple-touch-icon" href="https://credencial.tactika.mx/assets/logo-tactika.png" />
   <title>Credencial Seguro Auto</title>
 
   <meta property="og:title" content="Credencial Seguro Auto" />
@@ -29,6 +29,7 @@
       --green-dark: #2C3228;
       --beige: #F0EADA;
       --shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
+      --success: #25D366;
     }
 
     * { box-sizing: border-box; }
@@ -241,6 +242,7 @@
       font-size: 18px;
       font-weight: 700;
       cursor: pointer;
+      font-family: inherit;
     }
 
     .btn-call {
@@ -256,7 +258,7 @@
     }
 
     .btn-whatsapp {
-      background: #25D366;
+      background: var(--success);
       color: white;
       box-shadow: 0 10px 24px rgba(37, 211, 102, 0.35);
     }
@@ -267,6 +269,84 @@
       text-align: center;
       font-size: 18px;
     }
+
+    .pdf-viewer {
+      display: none;
+      background: #ffffff;
+      color: #111111;
+      min-height: 840px;
+      border-radius: 34px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .pdf-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px 18px;
+      background: var(--green);
+      color: var(--beige);
+    }
+
+    .pdf-title {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .pdf-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .pdf-btn {
+      appearance: none;
+      border: 0;
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      font-family: inherit;
+    }
+
+    .pdf-btn-close {
+      background: var(--beige);
+      color: var(--green-dark);
+    }
+
+    .pdf-btn-open {
+      background: #ffffff;
+      color: var(--green-dark);
+    }
+
+    .pdf-frame-wrap {
+      height: calc(100vh - 160px);
+      min-height: 620px;
+      background: #f7f7f7;
+    }
+
+    .pdf-frame {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+      background: #ffffff;
+    }
+
+    @media (max-width: 380px) {
+      .top, .main, .vehicle-panel, .actions-panel { padding-left: 18px; padding-right: 18px; }
+      .insurer-band { padding-left: 16px; padding-right: 16px; }
+      .vehicle-row { grid-template-columns: 92px 1fr; font-size: 15px; }
+      .btn { font-size: 16px; min-height: 58px; }
+      .insurer-name { font-size: 15px; }
+      .logo-wrap { width: 46px; height: 46px; flex-basis: 46px; }
+      .pdf-actions { justify-content: flex-end; }
+    }
   </style>
 </head>
 <body>
@@ -274,7 +354,7 @@
     <div class="card" id="card" style="display:none;">
       <div class="top">
         <div class="brand-logo-wrap">
-          <img src="https://credencial.tactika.mx/logo-tactika.png" alt="Tactika" />
+          <img src="https://credencial.tactika.mx/assets/logo-tactika.png" alt="Tactika" />
         </div>
         <div class="vigencia-box">
           <div class="label-top">Vigencia</div>
@@ -319,9 +399,22 @@
 
         <div class="buttons">
           <a class="btn btn-call" id="btnTelefono" href="#">📞 Llamar a siniestros</a>
-          <a class="btn btn-pdf" id="btnPdf" href="#" target="_blank" rel="noopener noreferrer">📄 Ver póliza completa</a>
+          <button class="btn btn-pdf" id="btnPdf" type="button">📄 Ver póliza completa</button>
           <a class="btn btn-whatsapp" href="https://wa.me/message/HWHNU3PT7TYXG1" target="_blank" rel="noopener noreferrer">💬 Contacta a tu agente</a>
         </div>
+      </div>
+    </div>
+
+    <div class="pdf-viewer" id="pdfViewer">
+      <div class="pdf-header">
+        <div class="pdf-title">Póliza completa</div>
+        <div class="pdf-actions">
+          <a class="pdf-btn pdf-btn-open" id="pdfOpenNew" href="#" target="_blank" rel="noopener noreferrer">Abrir aparte</a>
+          <button class="pdf-btn pdf-btn-close" id="pdfClose" type="button">Cerrar</button>
+        </div>
+      </div>
+      <div class="pdf-frame-wrap">
+        <iframe class="pdf-frame" id="pdfFrame" src=""></iframe>
       </div>
     </div>
 
@@ -335,6 +428,11 @@
 
       const message = document.getElementById("message");
       const card = document.getElementById("card");
+      const pdfViewer = document.getElementById("pdfViewer");
+      const btnPdf = document.getElementById("btnPdf");
+      const pdfFrame = document.getElementById("pdfFrame");
+      const pdfOpenNew = document.getElementById("pdfOpenNew");
+      const pdfClose = document.getElementById("pdfClose");
 
       if (!codigo) {
         message.innerHTML = "No se encontró código de credencial.";
@@ -366,20 +464,43 @@
 
         document.getElementById("nombreAseguradora").innerHTML = aseguradora.nombre;
         document.getElementById("logoAseguradora").src = aseguradora.logo;
-        document.getElementById("vigencia").innerHTML = poliza.vigencia;
-        document.getElementById("contratante").innerHTML = poliza.contratante;
-        document.getElementById("poliza").innerHTML = poliza.poliza;
-        document.getElementById("vehiculo").innerHTML = poliza.vehiculo;
-        document.getElementById("color").innerHTML = poliza.color;
-        document.getElementById("serie").innerHTML = poliza.serie;
-        document.getElementById("telefonoTexto").innerHTML = aseguradora.telefono_siniestros;
-        document.getElementById("btnTelefono").href = "tel:" + aseguradora.telefonolink;
-        document.getElementById("btnPdf").href = poliza.pdf_url || poliza.pdf || "#";
+        document.getElementById("vigencia").innerHTML = poliza.vigencia_texto || poliza.vigencia || "";
+        document.getElementById("contratante").innerHTML = poliza.contratante || "";
+        document.getElementById("poliza").innerHTML = poliza.poliza || "";
+        document.getElementById("vehiculo").innerHTML = poliza.vehiculo || "";
+        document.getElementById("color").innerHTML = poliza.color || "";
+        document.getElementById("serie").innerHTML = poliza.serie || "";
+        document.getElementById("telefonoTexto").innerHTML = aseguradora.telefono_siniestros || "";
+        document.getElementById("btnTelefono").href = "tel:" + (aseguradora.telefonolink || "");
+
+        const pdfLink = poliza.pdf_url || poliza.pdf || poliza.pdf_externo_url || "";
+
+        if (pdfLink) {
+          pdfOpenNew.href = pdfLink;
+
+          btnPdf.addEventListener("click", function () {
+            pdfFrame.src = pdfLink;
+            card.style.display = "none";
+            pdfViewer.style.display = "block";
+            message.style.display = "none";
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          });
+
+          pdfClose.addEventListener("click", function () {
+            pdfViewer.style.display = "none";
+            card.style.display = "block";
+            pdfFrame.src = "";
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          });
+        } else {
+          btnPdf.style.display = "none";
+        }
 
         message.style.display = "none";
         card.style.display = "block";
       } catch (error) {
-        message.innerHTML = "Ocurrió un error al cargar la credencial.";
+        console.error(error);
+        message.innerHTML = "Error al cargar la credencial: " + error.message;
       }
     }
 
