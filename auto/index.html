@@ -262,7 +262,10 @@
       color: white;
       box-shadow: 0 10px 24px rgba(37, 211, 102, 0.35);
     }
-
+.btn-wallet {
+  background: #000;
+  color: #fff;
+}
     .message {
       padding: 40px 24px;
       color: #fff;
@@ -401,6 +404,7 @@
           <a class="btn btn-call" id="btnTelefono" href="#">📞 Llamar a siniestros</a>
           <button class="btn btn-pdf" id="btnPdf" type="button">📄 Ver póliza completa</button>
           <a class="btn btn-whatsapp" href="https://wa.me/message/HWHNU3PT7TYXG1" target="_blank" rel="noopener noreferrer">💬 Contacta a tu agente</a>
+        <a class="btn btn-wallet" id="btnWallet" target="_blank">📲 Agregar a Google Wallet</a>
         </div>
       </div>
     </div>
@@ -454,14 +458,13 @@
           message.innerHTML = "Credencial no encontrada.";
           return;
         }
-
-        const aseguradora = aseguradoras[poliza.aseguradora_id];
-
         if (!aseguradora) {
           message.innerHTML = "Aseguradora no configurada.";
           return;
         }
-
+        document.getElementById("btnWallet").href =
+  "https://tactika-wallet-api.vercel.app/api/wallet/auto/" + codigo;  
+        const aseguradora = aseguradoras[poliza.aseguradora_id];
         document.getElementById("nombreAseguradora").innerHTML = aseguradora.nombre;
         document.getElementById("logoAseguradora").src = aseguradora.logo;
         document.getElementById("vigencia").innerHTML = poliza.vigencia_texto || poliza.vigencia || "";
