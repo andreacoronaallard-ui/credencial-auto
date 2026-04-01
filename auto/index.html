@@ -452,18 +452,23 @@
         const polizas = await respPolizas.json();
         const aseguradoras = await respAseguradoras.json();
 
-        const poliza = polizas[codigo];
+       const poliza = polizas[codigo];
 
-        if (!poliza) {
-          message.innerHTML = "Credencial no encontrada.";
-          return;
-        }
-        if (!aseguradora) {
-          message.innerHTML = "Aseguradora no configurada.";
-          return;
-        }
-        document.getElementById("btnWallet").href =
-  "https://tactika-wallet-api.vercel.app/api/wallet/auto/" + codigo;  
+if (!poliza) {
+  message.innerHTML = "Credencial no encontrada.";
+  return;
+}
+
+const aseguradora = aseguradoras[poliza.aseguradora_id];
+
+if (!aseguradora) {
+  message.innerHTML = "Aseguradora no configurada.";
+  return;
+}
+
+document.getElementById("btnWallet").href =
+  "https://tactika-wallet-api.vercel.app/api/wallet/auto/" + codigo;
+        
         const aseguradora = aseguradoras[poliza.aseguradora_id];
         document.getElementById("nombreAseguradora").innerHTML = aseguradora.nombre;
         document.getElementById("logoAseguradora").src = aseguradora.logo;
