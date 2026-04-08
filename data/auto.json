@@ -195,4 +195,32 @@
 
     "web_url": "https://credencial.tactika.mx/auto/?c=1290649638"
       }
+     "005671649": {
+    "id": "005671649",
+    "shortcut": "005671649",
+    "tipo": "auto",
+    "aseguradora_id": "ana",
+    "status": "activa",
+
+    "contratante": "Trade Marketing Management",
+    "asegurado": "Manuel Orvañanos Riquelme",
+
+    "poliza": "005671649",
+
+    "vehiculo": "Toyota Highlander Limited HEV 2024",
+    "marca": "Toyota",
+    "submarca": "Highlander Limited HEV",
+    "anio": "2024",
+
+    "color": " ",
+    "serie": "5TDYARAH9RS535766",
+
+    "vigencia_inicio": "2026-03-13T00:00:00Z",
+    "vigencia_fin": "2027-03-13T23:59:59Z",
+    "vigencia_texto": "13/03/2026 - 13/03/2027",
+
+    "pdf_url": "https://credencial.tactika.mx/assets/poliza/005671649.pdf",
+
+    "web_url": "https://credencial.tactika.mx/auto/?c=005671649"
+      }
 }
