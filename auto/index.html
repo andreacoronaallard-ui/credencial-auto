@@ -17,6 +17,8 @@
   <meta property="og:title" content="Credencial Seguro Auto" />
   <meta property="og:description" content="Accede a tu credencial digital de seguro de auto con Tactika." />
   <meta property="og:image" content="https://credencial.tactika.mx/preview-tactika-auto.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta property="og:url" content="https://credencial.tactika.mx/auto/" />
   <meta property="og:type" content="website" />
 
@@ -28,21 +30,20 @@
   <style>
     :root {
       --bg: #eef0ea;
-      --green-deep: #1F2A23;
+      --green-deep: #2C3228;
       --green: #4A5E4A;
       --green-soft: #647564;
       --beige: #F0EADA;
+      --beige-warm: #E8E0CC;
       --text-dark: #243026;
       --white: #ffffff;
-      --shadow: 0 20px 45px rgba(24, 33, 27, 0.16);
-      --shadow-soft: 0 10px 24px rgba(24, 33, 27, 0.10);
-      --wa: #25D366;
-      --border-soft: rgba(255,255,255,0.16);
+      --gris: #ADA899;
+      --gris-light: #C8C2B4;
+      --accent: #6fcf97;
+      --danger: #D94E4E;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -54,281 +55,301 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: max(18px, env(safe-area-inset-top)) 18px max(18px, env(safe-area-inset-bottom));
-      color: var(--white);
+      padding: max(18px, env(safe-area-inset-top)) 12px max(18px, env(safe-area-inset-bottom));
+      color: var(--text-dark);
     }
+
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
 
     .phone {
       width: 100%;
-      max-width: 440px;
+      max-width: 420px;
     }
 
+    /* ── Card shell ── */
     .card {
       display: none;
-      overflow: hidden;
-      border-radius: 30px;
-      background: linear-gradient(180deg, #223027 0%, #304036 100%);
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border-soft);
-      backdrop-filter: blur(4px);
+      animation: fadeIn .4s ease;
     }
 
-    .hero {
+    .card-wrap {
+      background: var(--beige);
+      border-radius: 16px;
+      padding: 20px 14px 16px;
+    }
+
+    .notch {
+      width: 64px;
+      height: 5px;
+      background: var(--gris-light);
+      border-radius: 4px;
+      margin: 0 auto 14px;
+      opacity: .45;
+    }
+
+    /* ── Dark inner card ── */
+    .dark-card {
+      border-radius: 14px;
+      background: var(--green-deep);
+      padding: 20px 20px 18px;
+      color: var(--beige);
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       position: relative;
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      background: #314238;
       overflow: hidden;
     }
 
-    .hero img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
+    .dark-card::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      background: rgba(74,94,74,.12);
+      transform: translate(30%, -30%);
+      pointer-events: none;
     }
 
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        180deg,
-        rgba(20, 28, 23, 0.08) 0%,
-        rgba(20, 28, 23, 0.18) 40%,
-        rgba(20, 28, 23, 0.52) 100%
-      );
-    }
-
-    .top-bar {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      padding: 16px 18px 0;
+    .card-header {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
+      position: relative;
+      z-index: 1;
+    }
+
+    .brand-logo {
+      height: 30px;
+      opacity: .9;
+    }
+
+    .plan-badge {
+      font-size: 10px;
+      font-weight: 700;
+      background: rgba(74,94,74,.45);
+      padding: 3px 12px;
+      border-radius: 20px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--beige);
+    }
+
+    .policy-section {
+      margin-top: 16px;
+    }
+
+    .label-tiny {
+      font-size: 9px;
+      opacity: .4;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .policy-number {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      margin-top: 2px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 10px;
-      z-index: 2;
     }
 
-    .brand-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(16, 23, 19, 0.34);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.12);
-    }
-
-    .brand-chip img {
-      width: 18px;
-      height: 18px;
-      object-fit: contain;
-      display: block;
-    }
-
-    .brand-chip span {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.2px;
-      color: #fff;
-    }
-
-    .vigencia-chip {
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(16, 23, 19, 0.34);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.12);
-      font-size: 11px;
-      font-weight: 600;
-      color: #fff;
-      text-align: right;
-      max-width: 155px;
-      line-height: 1.25;
-    }
-
-    .hero-info {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 2;
-      padding: 0 22px 22px;
-    }
-
-    .vehiculo {
-      margin: 0;
-      font-size: clamp(26px, 6vw, 34px);
-      line-height: 1.04;
-      font-weight: 700;
-      letter-spacing: 0.2px;
+    .detail-label {
+      font-size: 9px;
+      opacity: .4;
+      letter-spacing: 1px;
       text-transform: uppercase;
-      text-shadow: 0 2px 12px rgba(0,0,0,0.18);
+      font-weight: 600;
     }
 
-    .meta-row {
-      margin-top: 10px;
+    .detail-value {
+      font-size: 13px;
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    .vehicle-row {
       display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 14px;
     }
 
-    .meta-pill {
-      display: inline-flex;
-      align-items: center;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.14);
-      border: 1px solid rgba(255,255,255,0.16);
-      backdrop-filter: blur(10px);
-      font-size: 12px;
-      font-weight: 600;
-      color: #fff;
-    }
-
-    .content {
-      padding: 22px 22px 24px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.00) 100%);
-    }
-
-    .info-panel {
-      background: var(--beige);
-      color: var(--text-dark);
-      border-radius: 22px;
-      padding: 18px 18px 16px;
-      box-shadow: var(--shadow-soft);
-    }
-
-    .info-grid {
-      display: grid;
-      gap: 14px;
-    }
-
-    .info-item {
-      display: grid;
-      gap: 4px;
-    }
-
-    .info-label {
-      font-size: 12px;
-      letter-spacing: 0.3px;
-      opacity: 0.72;
-      text-transform: uppercase;
+    .vehicle-name {
       font-weight: 700;
+      font-size: 15px;
     }
 
-    .info-value {
-      font-size: 17px;
-      line-height: 1.25;
+    .vehicle-detail {
+      font-size: 12px;
+      opacity: .65;
+    }
+
+    .status-badge {
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-shrink: 0;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: inline-block;
+      animation: pulse 2s infinite;
+    }
+
+    /* ── Insurer chip ── */
+    .insurer-chip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+      padding: 10px 14px;
+      background: rgba(255,255,255,.06);
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .insurer-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--white);
+      object-fit: contain;
+      padding: 3px;
+      flex-shrink: 0;
+    }
+
+    .insurer-name {
+      font-size: 13px;
       font-weight: 600;
-      word-break: break-word;
+      color: var(--beige);
     }
 
+    .insurer-sub {
+      font-size: 10px;
+      opacity: .5;
+      margin-top: 1px;
+    }
+
+    /* ── Buttons ── */
     .buttons {
-      display: grid;
-      gap: 14px;
-      margin-top: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 14px;
     }
 
     .btn {
-    appearance: none;
-    border: 0;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-    min-height: 52px;
-    padding: 14px 18px;
-    border-radius: 14px;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    font-family: inherit;
-    transition: transform 0.16s ease, opacity 0.16s ease;
-    }
-    .btn-official-wallet {
-    appearance: none;
-    border: 0;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 6px 0;
-    background: transparent;
-    cursor: pointer;
-    margin-top: 4px;
-  }
-  
-  .btn-official-wallet img {
-    height: 58px;
-    width: auto;      /* ← esto es clave, que no se estire */
-    max-width: 100%;
-    display: block;
-    margin: 0 auto;
-  }
-
-  .btn:hover {
-    transform: translateY(-1px);
-    }
-
-.btn-call {
-  background: #D94E4E;
-  color: #fff;
-  box-shadow: 0 6px 16px rgba(217, 78, 78, 0.3);
-    }
-
-.btn-pdf {
-  background: var(--beige);
-  color: var(--green-deep);
-  border: 1.5px solid rgba(0,0,0,0.06);
-    }
-
-.btn-whatsapp {
-  background: var(--green-deep);
-  color: var(--beige);
-  border: 1.5px solid rgba(255,255,255,0.1);
-    }
-
-    .btn-official-wallet {
-      min-height: auto;
-      padding: 0;
-      background: transparent;
-      box-shadow: none;
+      appearance: none;
+      border: 0;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
       justify-content: center;
-      margin-top: 4px;
+      gap: 8px;
+      width: 100%;
+      min-height: 52px;
+      padding: 14px 18px;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: transform .16s ease, opacity .16s ease;
     }
 
-    .btn-official-wallet img {
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn-call {
+      background: var(--danger);
+      color: #fff;
+      box-shadow: 0 6px 16px rgba(217,78,78,.3);
+    }
+
+    .btn-pdf {
+      background: var(--beige);
+      color: var(--green-deep);
+      border: 1.5px solid rgba(0,0,0,.06);
+    }
+
+    .btn-whatsapp {
+      background: var(--green-deep);
+      color: var(--beige);
+      border: 1.5px solid rgba(255,255,255,.1);
+    }
+
+    .btn-wallet {
+      padding: 6px 0;
+      background: transparent;
+      min-height: auto;
+      border: 0;
+    }
+
+    .btn-wallet img {
       height: 58px;
+      width: auto;
+      max-width: 100%;
       display: block;
       margin: 0 auto;
     }
 
+    /* ── Tactika footer ── */
+    .tactika-footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 16px;
+      opacity: .35;
+      transition: opacity .2s;
+    }
+
+    .tactika-footer:hover { opacity: .55; }
+
+    .tactika-footer img {
+      height: 16px;
+    }
+
+    .tactika-footer span {
+      font-size: 10px;
+      color: var(--gris);
+      letter-spacing: .5px;
+      font-weight: 600;
+    }
+
+    /* ── Loading message ── */
     .message {
       padding: 42px 24px;
       text-align: center;
       font-size: 18px;
       color: var(--green-deep);
-      background: rgba(255,255,255,0.72);
+      background: rgba(255,255,255,.72);
       border-radius: 24px;
-      box-shadow: var(--shadow-soft);
     }
 
+    /* ── PDF viewer ── */
     .pdf-viewer {
       display: none;
       background: #ffffff;
       color: #111;
-      border-radius: 30px;
+      border-radius: 20px;
       overflow: hidden;
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(0,0,0,0.06);
+      box-shadow: 0 20px 45px rgba(24,33,27,.16);
+      border: 1px solid rgba(0,0,0,.06);
     }
 
     .pdf-header {
@@ -336,27 +357,20 @@
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      padding: 16px 18px;
+      padding: 14px 18px;
       background: var(--green-deep);
-      color: #fff;
+      color: var(--beige);
     }
 
-    .pdf-title {
-      font-size: 17px;
-      font-weight: 700;
-    }
+    .pdf-title { font-size: 16px; font-weight: 700; }
 
-    .pdf-actions {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
+    .pdf-actions { display: flex; gap: 8px; }
 
     .pdf-btn {
       appearance: none;
       border: 0;
-      border-radius: 999px;
-      padding: 10px 14px;
+      border-radius: 8px;
+      padding: 8px 14px;
       font-size: 13px;
       font-weight: 700;
       text-decoration: none;
@@ -370,9 +384,9 @@
     }
 
     .pdf-btn-close {
-      background: rgba(255,255,255,0.14);
+      background: rgba(255,255,255,.14);
       color: #fff;
-      border: 1px solid rgba(255,255,255,0.16);
+      border: 1px solid rgba(255,255,255,.16);
     }
 
     .pdf-frame-wrap {
@@ -389,30 +403,12 @@
       background: #fff;
     }
 
+    /* ── Responsive ── */
     @media (max-width: 380px) {
-      .hero-info {
-        padding: 0 18px 18px;
-      }
-
-      .content {
-        padding: 18px 18px 22px;
-      }
-
-      .vehiculo {
-        font-size: 24px;
-      }
-
-      .btn {
-        font-size: 16px;
-      }
-
-      .info-value {
-        font-size: 16px;
-      }
-
-      .btn-official-wallet img {
-        height: 44px;
-      }
+      .policy-number { font-size: 20px; letter-spacing: 2px; }
+      .vehicle-name { font-size: 13px; }
+      .btn { font-size: 14px; min-height: 48px; }
+      .btn-wallet img { height: 52px; }
     }
   </style>
 </head>
@@ -423,79 +419,76 @@
     <div class="message" id="message">Cargando credencial...</div>
 
     <div class="card" id="card">
+      <div class="card-wrap">
+        <div class="notch"></div>
 
-      <div class="hero">
-        <img src="https://credencial.tactika.mx/preview-tactika-auto.jpg" alt="Preview credencial" />
-        <div class="hero-overlay"></div>
+        <!-- ── Dark card ── -->
+        <div class="dark-card">
+          <div>
+            <div class="card-header">
+              <img class="brand-logo" src="https://credencial.tactika.mx/assets/logo-tactikaverde.png" alt="Tactika" />
+              <div class="plan-badge">Seguro Auto</div>
+            </div>
 
-        <div class="top-bar">
-          <div class="brand-chip">
-            <img src="https://credencial.tactika.mx/assets/logo-tactikaverde.png" alt="Tactika" />
-            <span>Tactika</span>
+            <div class="policy-section">
+              <div class="label-tiny">No. de póliza</div>
+              <div class="policy-number" id="poliza"></div>
+            </div>
           </div>
-          <div class="vigencia-chip" id="vigenciaChip"></div>
-        </div>
 
-        <div class="hero-info">
-          <h1 class="vehiculo" id="vehiculo"></h1>
-          <div class="meta-row">
-            <div class="meta-pill" id="aseguradora"></div>
-            <div class="meta-pill">Seguro Auto</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="content">
-        <div class="info-panel">
-          <div class="info-grid">
-            <div class="info-item">
-              <div class="info-label">Contratante</div>
-              <div class="info-value" id="contratante"></div>
+          <div>
+            <div class="details-grid">
+              <div>
+                <div class="detail-label">Vigencia</div>
+                <div class="detail-value" id="vigencia"></div>
+              </div>
+              <div>
+                <div class="detail-label">Contratante</div>
+                <div class="detail-value" id="contratante"></div>
+              </div>
             </div>
 
-            <div class="info-item">
-              <div class="info-label">Póliza</div>
-              <div class="info-value" id="poliza"></div>
+            <div class="vehicle-row">
+              <div>
+                <div class="vehicle-name" id="vehiculo"></div>
+                <div class="vehicle-detail" id="vehiculoDetalle"></div>
+              </div>
+              <div class="status-badge">
+                <span class="status-dot"></span>
+                Vigente
+              </div>
             </div>
 
-            <div class="info-item">
-              <div class="info-label">Vigencia</div>
-              <div class="info-value" id="vigencia"></div>
-            </div>
-
-            <div class="info-item">
-              <div class="info-label">Serie</div>
-              <div class="info-value" id="serie"></div>
-            </div>
-
-            <div class="info-item">
-              <div class="info-label">Color</div>
-              <div class="info-value" id="color"></div>
-            </div>
-
-            <div class="info-item">
-              <div class="info-label">Siniestros</div>
-              <div class="info-value" id="telefonoTexto"></div>
+            <!-- Insurer chip -->
+            <div class="insurer-chip">
+              <img class="insurer-logo" id="insurerLogo" src="" alt="" />
+              <div>
+                <div class="insurer-name" id="insurerName"></div>
+                <div class="insurer-sub" id="insurerSub"></div>
+              </div>
             </div>
           </div>
         </div>
 
+        <!-- ── Buttons ── -->
         <div class="buttons">
           <a class="btn btn-call" id="btnTelefono" href="#">📞 Llamar a siniestros</a>
           <button class="btn btn-pdf" id="btnPdf" type="button">📄 Ver póliza completa</button>
           <a class="btn btn-whatsapp" href="https://wa.me/message/HWHNU3PT7TYXG1" target="_blank" rel="noopener noreferrer">💬 Contacta a tu agente</a>
-
-          <a class="btn-official-wallet" id="btnGoogleWalletOfficial" target="_blank" rel="noopener noreferrer">
-          <img
-            src="/assets/es419_add_to_google_wallet_wallet-button.svg"
-            alt="Agregar a Google Wallet"
-          />
+          <a class="btn btn-wallet" id="btnGoogleWallet" target="_blank" rel="noopener noreferrer">
+            <img src="/assets/es419_add_to_google_wallet_wallet-button.svg" alt="Agregar a Google Wallet" />
           </a>
         </div>
       </div>
 
+      <!-- Tactika footer -->
+      <div class="tactika-footer">
+        <img src="https://credencial.tactika.mx/assets/logo-tactikatik.png" alt="Tactika" />
+        <span>Credencial digital por Tactika</span>
+      </div>
     </div>
 
+    <!-- ── PDF viewer ── -->
     <div class="pdf-viewer" id="pdfViewer">
       <div class="pdf-header">
         <div class="pdf-title">Póliza completa</div>
@@ -524,7 +517,7 @@
       const pdfOpenNew = document.getElementById("pdfOpenNew");
       const pdfClose = document.getElementById("pdfClose");
       const btnTelefono = document.getElementById("btnTelefono");
-      const btnGoogleWalletOfficial = document.getElementById("btnGoogleWalletOfficial");
+      const btnGoogleWallet = document.getElementById("btnGoogleWallet");
 
       if (!codigo) {
         message.innerHTML = "No se encontró código de credencial.";
@@ -555,30 +548,40 @@
           return;
         }
 
-        document.getElementById("vehiculo").innerText = poliza.vehiculo || "";
-        document.getElementById("aseguradora").innerText = aseguradora.nombre || "";
-        document.getElementById("contratante").innerText = poliza.contratante || "";
+        // Fill card data
         document.getElementById("poliza").innerText = poliza.poliza || "";
         document.getElementById("vigencia").innerText = poliza.vigencia_texto || "";
-        document.getElementById("vigenciaChip").innerText = poliza.vigencia_texto || "";
-        document.getElementById("serie").innerText = poliza.serie || "";
-        document.getElementById("color").innerText = (poliza.color || "").trim();
-        document.getElementById("telefonoTexto").innerText = aseguradora.telefono_siniestros || "";
+        document.getElementById("contratante").innerText = poliza.contratante || "";
+        document.getElementById("vehiculo").innerText = poliza.vehiculo || "";
 
+        // Vehicle detail: color + serie
+        const color = (poliza.color || "").trim();
+        const serie = poliza.serie || "";
+        const detailParts = [];
+        if (color) detailParts.push(color);
+        if (serie) detailParts.push("Serie: " + serie);
+        document.getElementById("vehiculoDetalle").innerText = detailParts.join(" · ");
+
+        // Insurer info
+        document.getElementById("insurerLogo").src = aseguradora.logo || "";
+        document.getElementById("insurerLogo").alt = aseguradora.nombre || "";
+        document.getElementById("insurerName").innerText = aseguradora.nombre || "";
+        document.getElementById("insurerSub").innerText = "Siniestros: " + (aseguradora.telefono_siniestros || "");
+
+        // Phone button
         btnTelefono.href = "tel:" + (aseguradora.telefonolink || "");
-        btnPdf.href = poliza.pdf_url || "#";
+        btnTelefono.innerText = "📞 Llamar a siniestros · " + (aseguradora.telefono_siniestros || "");
 
-        const walletUrl = `https://tactika-wallet-api.vercel.app/api/wallet/auto/${poliza.id}`;
-
-        if (btnGoogleWalletOfficial) {
-          btnGoogleWalletOfficial.href = walletUrl;
+        // Google Wallet
+        const walletUrl = "https://tactika-wallet-api.vercel.app/api/wallet/auto/" + poliza.id;
+        if (btnGoogleWallet) {
+          btnGoogleWallet.href = walletUrl;
         }
 
+        // PDF
         const pdfLink = poliza.pdf_url || "";
-
         if (pdfLink) {
           pdfOpenNew.href = pdfLink;
-
           btnPdf.onclick = function () {
             pdfFrame.src = pdfLink;
             card.style.display = "none";
@@ -586,7 +589,6 @@
             message.style.display = "none";
             window.scrollTo({ top: 0, behavior: "smooth" });
           };
-
           pdfClose.onclick = function () {
             pdfViewer.style.display = "none";
             card.style.display = "block";
