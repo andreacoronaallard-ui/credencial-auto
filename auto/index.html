@@ -73,11 +73,31 @@ body {
       animation: fadeIn .4s ease;
     }
 
-    .card-wrap {
-      background: var(--beige);
-      border-radius: 16px;
-      padding: 20px 14px 16px;
-    }
+.card-wrap {
+  background-image: url('/assets/preview-tactika-auto.jpg');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  border-radius: 16px;
+  padding: 20px 14px 16px;
+  box-shadow: 0 24px 48px rgba(0,0,0,.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(30, 40, 32, 0.45);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.card-wrap > * {
+  position: relative;
+  z-index: 1;
+}
 
     .notch {
       width: 64px;
