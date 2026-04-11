@@ -236,22 +236,26 @@
 
     .btn,
     .btn-official-wallet {
-      appearance: none;
-      border: 0;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      min-height: 58px;
-      padding: 14px 18px;
-      border-radius: 999px;
-      font-size: 17px;
-      font-weight: 700;
-      cursor: pointer;
-      font-family: inherit;
-      transition: transform 0.16s ease, box-shadow 0.16s ease, opacity 0.16s ease;
-    }
+    appearance: none;
+    border: 0;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 6px 0;
+    background: transparent;
+    cursor: pointer;
+    margin-top: 4px;
+  }
+  
+  .btn-official-wallet img {
+    height: 58px;
+    width: auto;      /* ← esto es clave, que no se estire */
+    max-width: 100%;
+    display: block;
+    margin: 0 auto;
+  }
 
     .btn:hover,
     .btn-official-wallet:hover {
