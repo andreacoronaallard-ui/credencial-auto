@@ -223,14 +223,13 @@
       border: 1px solid rgba(255,255,255,.08);
     }
 
-    .insurer-logo {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      background: var(--white);
-      object-fit: contain;
-      padding: 3px;
-      flex-shrink: 0;
+.insurer-logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: transparent;
+  object-fit: contain;
+  flex-shrink: 0;
     }
 
     .insurer-name {
@@ -448,7 +447,7 @@
               </div>
             </div>
 
-            <div class="vehicle-row">
+              <div class="vehicle-row">
               <div>
                 <div class="vehicle-name" id="vehiculo"></div>
                 <div class="vehicle-detail" id="vehiculoDetalle"></div>
@@ -566,7 +565,7 @@
         document.getElementById("insurerLogo").src = aseguradora.logo || "";
         document.getElementById("insurerLogo").alt = aseguradora.nombre || "";
         document.getElementById("insurerName").innerText = aseguradora.nombre || "";
-        document.getElementById("insurerSub").innerText = "Siniestros: " + (aseguradora.telefono_siniestros || "");
+        document.getElementById("insurerSub").innerText = "Aseguradora";
 
         // Phone button
         btnTelefono.href = "tel:" + (aseguradora.telefonolink || "");
