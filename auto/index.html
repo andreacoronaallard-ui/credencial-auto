@@ -45,19 +45,19 @@
 
     * { box-sizing: border-box; }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  font-family: "Avenir Next", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background:
-    radial-gradient(circle at top, rgba(255,255,255,0.45), transparent 35%),
-    linear-gradient(180deg, #eef1eb 0%, #dfe5dd 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: max(18px, env(safe-area-inset-top)) 12px max(18px, env(safe-area-inset-bottom));
-  color: var(--text-dark);
-}
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Avenir Next", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(255,255,255,0.45), transparent 35%),
+        linear-gradient(180deg, #eef1eb 0%, #dfe5dd 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: max(18px, env(safe-area-inset-top)) 12px max(18px, env(safe-area-inset-bottom));
+      color: var(--text-dark);
+    }
 
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
     @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
@@ -67,17 +67,16 @@ body {
       max-width: 420px;
     }
 
-    /* ── Card shell ── */
     .card {
       display: none;
       animation: fadeIn .4s ease;
     }
 
-.card-wrap {
-  background: var(--beige);
-  border-radius: 16px;
-  padding: 20px 14px 16px;
-}
+    .card-wrap {
+      background: var(--beige);
+      border-radius: 16px;
+      padding: 20px 14px 16px;
+    }
 
     .notch {
       width: 64px;
@@ -88,37 +87,36 @@ body {
       opacity: .45;
     }
 
-    /* ── Dark inner card ── */
-   .dark-card {
-  border-radius: 14px;
-  background-color: var(--green-deep);
-  background-image: url('/assets/preview-tactika-auto.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  padding: 20px 20px 18px;
-  color: var(--beige);
-  min-height: 220px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
-  overflow: hidden;
-}
+    .dark-card {
+      border-radius: 14px;
+      background-color: var(--green-deep);
+      background-image: url('/assets/preview-tactika-auto.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      padding: 20px 20px 18px;
+      color: var(--beige);
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
 
-.dark-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(30, 40, 32, 0.86);
-  pointer-events: none;
-  z-index: 0;
-}
+    .dark-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(30, 40, 32, 0.86);
+      pointer-events: none;
+      z-index: 0;
+    }
 
-.dark-card > * {
-  position: relative;
-  z-index: 1;
-}
+    .dark-card > * {
+      position: relative;
+      z-index: 1;
+    }
 
     .card-header {
       display: flex;
@@ -128,10 +126,7 @@ body {
       z-index: 1;
     }
 
-    .brand-logo {
-      height: 30px;
-      opacity: .9;
-    }
+    .brand-logo { height: 30px; opacity: .9; }
 
     .plan-badge {
       font-size: 10px;
@@ -144,9 +139,7 @@ body {
       color: var(--beige);
     }
 
-    .policy-section {
-      margin-top: 16px;
-    }
+    .policy-section { margin-top: 16px; }
 
     .label-tiny {
       font-size: 9px;
@@ -157,7 +150,7 @@ body {
     }
 
     .policy-number {
-      font-size: 24px;
+      font-size: clamp(18px, 5vw, 24px);
       font-weight: 700;
       letter-spacing: 3px;
       margin-top: 2px;
@@ -191,67 +184,32 @@ body {
       margin-top: 14px;
     }
 
-    .vehicle-name {
-      font-weight: 700;
-      font-size: 15px;
-    }
+    .vehicle-name { font-weight: 700; font-size: 15px; }
+    .vehicle-detail { font-size: 12px; opacity: .65; }
 
-    .vehicle-detail {
-      font-size: 12px;
-      opacity: .65;
-    }
-
-    .status-badge {
-      font-size: 11px;
+    .insurer-chip {
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 10px;
+      margin-top: 14px;
+      padding: 10px 14px;
+      background: rgba(255,255,255,.06);
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .insurer-logo {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: transparent;
+      object-fit: contain;
       flex-shrink: 0;
     }
 
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--accent);
-      display: inline-block;
-      animation: pulse 2s infinite;
-    }
+    .insurer-name { font-size: 13px; font-weight: 600; color: var(--beige); }
+    .insurer-sub { font-size: 10px; opacity: .5; margin-top: 1px; }
 
-    /* ── Insurer chip ── */
-.insurer-chip {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 14px;
-  padding: 10px 14px;
-  background: rgba(255,255,255,.06);
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,.08);
-}
-
-.insurer-logo {
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-  background: transparent;
-  object-fit: contain;
-  flex-shrink: 0;
-    }
-
-    .insurer-name {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--beige);
-    }
-
-    .insurer-sub {
-      font-size: 10px;
-      opacity: .5;
-      margin-top: 1px;
-    }
-
-    /* ── Buttons ── */
     .buttons {
       display: flex;
       flex-direction: column;
@@ -313,7 +271,6 @@ body {
       margin: 0 auto;
     }
 
-    /* ── Tactika footer ── */
     .tactika-footer {
       display: flex;
       align-items: center;
@@ -325,10 +282,7 @@ body {
     }
 
     .tactika-footer:hover { opacity: .55; }
-
-    .tactika-footer img {
-      height: 16px;
-    }
+    .tactika-footer img { height: 16px; }
 
     .tactika-footer span {
       font-size: 10px;
@@ -337,7 +291,6 @@ body {
       font-weight: 600;
     }
 
-    /* ── Loading message ── */
     .message {
       padding: 42px 24px;
       text-align: center;
@@ -347,7 +300,6 @@ body {
       border-radius: 24px;
     }
 
-    /* ── PDF viewer ── */
     .pdf-viewer {
       display: none;
       background: #ffffff;
@@ -369,7 +321,6 @@ body {
     }
 
     .pdf-title { font-size: 16px; font-weight: 700; }
-
     .pdf-actions { display: flex; gap: 8px; }
 
     .pdf-btn {
@@ -384,10 +335,7 @@ body {
       font-family: inherit;
     }
 
-    .pdf-btn-open {
-      background: #fff;
-      color: var(--green-deep);
-    }
+    .pdf-btn-open { background: #fff; color: var(--green-deep); }
 
     .pdf-btn-close {
       background: rgba(255,255,255,.14);
@@ -409,9 +357,8 @@ body {
       background: #fff;
     }
 
-    /* ── Responsive ── */
     @media (max-width: 380px) {
-      .policy-number { font-size: 20px; letter-spacing: 2px; }
+      .policy-number { letter-spacing: 2px; }
       .vehicle-name { font-size: 13px; }
       .btn { font-size: 14px; min-height: 48px; }
       .btn-wallet img { height: 52px; }
@@ -433,10 +380,12 @@ body {
           <div>
             <div class="card-header">
               <img class="brand-logo" src="https://credencial.tactika.mx/logo-tactikatikbeige.png" alt="Tactika" />
-             <div class="plan-badge" style="display:flex;align-items:center;gap:5px;">
-  <span style="width:7px;height:7px;border-radius:50%;background:#6fcf97;display:inline-block;animation:pulse 2s infinite;"></span>
-  Vigente
-</div>
+              <div class="plan-badge" style="display:flex;align-items:center;gap:5px;">
+                <span style="width:7px;height:7px;border-radius:50%;background:#6fcf97;display:inline-block;animation:pulse 2s infinite;"></span>
+                Vigente
+              </div>
+            </div><!-- cierre card-header -->
+
             <div class="policy-section">
               <div class="label-tiny">No. de póliza</div>
               <div class="policy-number" id="poliza"></div>
@@ -455,7 +404,7 @@ body {
               </div>
             </div>
 
-              <div class="vehicle-row">
+            <div class="vehicle-row">
               <div>
                 <div class="vehicle-name" id="vehiculo"></div>
                 <div class="vehicle-detail" id="vehiculoDetalle"></div>
@@ -471,7 +420,7 @@ body {
               </div>
             </div>
           </div>
-        </div>
+        </div><!-- cierre dark-card -->
 
         <!-- ── Buttons ── -->
         <div class="buttons">
@@ -482,7 +431,7 @@ body {
             <img src="/assets/es419_add_to_google_wallet_wallet-button.svg" alt="Agregar a Google Wallet" />
           </a>
         </div>
-      </div>
+      </div><!-- cierre card-wrap -->
 
       <!-- Tactika footer -->
       <div class="tactika-footer">
@@ -551,13 +500,11 @@ body {
           return;
         }
 
-        // Fill card data
         document.getElementById("poliza").innerText = poliza.poliza || "";
         document.getElementById("vigencia").innerText = poliza.vigencia_texto || "";
         document.getElementById("contratante").innerText = poliza.contratante || "";
         document.getElementById("vehiculo").innerText = poliza.vehiculo || "";
 
-        // Vehicle detail: color + serie
         const color = (poliza.color || "").trim();
         const serie = poliza.serie || "";
         const detailParts = [];
@@ -565,23 +512,19 @@ body {
         if (serie) detailParts.push("Serie: " + serie);
         document.getElementById("vehiculoDetalle").innerText = detailParts.join(" · ");
 
-        // Insurer info
         document.getElementById("insurerLogo").src = aseguradora.logo || "";
         document.getElementById("insurerLogo").alt = aseguradora.nombre || "";
         document.getElementById("insurerName").innerText = aseguradora.nombre || "";
         document.getElementById("insurerSub").innerText = "Aseguradora";
 
-        // Phone button
         btnTelefono.href = "tel:" + (aseguradora.telefonolink || "");
         btnTelefono.innerText = "📞 Llamar a siniestros · " + (aseguradora.telefono_siniestros || "");
 
-        // Google Wallet
         const walletUrl = "https://tactika-wallet-api.vercel.app/api/wallet/auto/" + poliza.id;
         if (btnGoogleWallet) {
           btnGoogleWallet.href = walletUrl;
         }
 
-        // PDF
         const pdfLink = poliza.pdf_url || "";
         if (pdfLink) {
           pdfOpenNew.href = pdfLink;
