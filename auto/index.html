@@ -74,29 +74,9 @@ body {
     }
 
 .card-wrap {
-  background-image: url('/assets/preview-tactika-auto.jpg');
-  background-size: cover;
-  background-position: center top;
-  background-repeat: no-repeat;
+  background: var(--beige);
   border-radius: 16px;
   padding: 20px 14px 16px;
-  box-shadow: 0 24px 48px rgba(0,0,0,.15);
-  position: relative;
-  overflow: hidden;
-}
-
-.card-wrap::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(30, 40, 32, 0.45);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.card-wrap > * {
-  position: relative;
-  z-index: 1;
 }
 
     .notch {
@@ -109,29 +89,36 @@ body {
     }
 
     /* ── Dark inner card ── */
-    .dark-card {
-      border-radius: 14px;
-      background: var(--green-deep);
-      padding: 20px 20px 18px;
-      color: var(--beige);
-      min-height: 220px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      position: relative;
-      overflow: hidden;
-    }
+   .dark-card {
+  border-radius: 14px;
+  background-color: var(--green-deep);
+  background-image: url('/assets/preview-tactika-auto.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 20px 20px 18px;
+  color: var(--beige);
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
 
-    .dark-card::before {
-      content: '';
-      position: absolute;
-      top: 0; right: 0;
-      width: 140px; height: 140px;
-      border-radius: 50%;
-      background: rgba(74,94,74,.12);
-      transform: translate(30%, -30%);
-      pointer-events: none;
-    }
+.dark-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(30, 40, 32, 0.7);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.dark-card > * {
+  position: relative;
+  z-index: 1;
+}
 
     .card-header {
       display: flex;
