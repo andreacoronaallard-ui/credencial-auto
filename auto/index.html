@@ -234,7 +234,24 @@
       margin-top: 18px;
     }
 
-    .btn,
+    .btn {
+    appearance: none;
+    border: 0;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    min-height: 52px;
+    padding: 14px 18px;
+    border-radius: 14px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: transform 0.16s ease, opacity 0.16s ease;
+    }
     .btn-official-wallet {
     appearance: none;
     border: 0;
@@ -257,27 +274,26 @@
     margin: 0 auto;
   }
 
-    .btn:hover,
-    .btn-official-wallet:hover {
-      transform: translateY(-1px);
+  .btn:hover {
+    transform: translateY(-1px);
     }
 
-  .btn-call {
-    background: #D94E4E;
-    color: #fff;
-    box-shadow: 0 8px 20px rgba(217, 78, 78, 0.25);
+.btn-call {
+  background: #D94E4E;
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(217, 78, 78, 0.3);
     }
 
 .btn-pdf {
-  background: rgba(255,255,255,0.12);
-  color: #fff;
-  border: 1.5px solid rgba(255,255,255,0.28);
+  background: var(--beige);
+  color: var(--green-deep);
+  border: 1.5px solid rgba(0,0,0,0.06);
     }
 
-    .btn-whatsapp {
-      background: var(--wa);
-      color: #fff;
-      box-shadow: 0 12px 24px rgba(37, 211, 102, 0.26);
+.btn-whatsapp {
+  background: var(--green-deep);
+  color: var(--beige);
+  border: 1.5px solid rgba(255,255,255,0.1);
     }
 
     .btn-official-wallet {
